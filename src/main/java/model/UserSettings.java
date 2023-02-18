@@ -5,9 +5,7 @@ import io.restassured.response.ValidatableResponse;
 import static io.restassured.RestAssured.given;
 
 public class UserSettings extends BaseURL {
-    private final String REGISTER = "api/auth/register";
-    private final String LOGIN = "api/auth/login";
-    private final String DELETE = "api/auth/user?={user}";
+    private final String PATH = "api/auth/";
     public String accessToken = "";
 
     @Step("User registration")
@@ -16,7 +14,7 @@ public class UserSettings extends BaseURL {
                 .spec(getSpec())
                 .body(user)
                 .when()
-                .post(REGISTER)
+                .post(PATH + "register")
                 .then();
     }
 
@@ -26,7 +24,7 @@ public class UserSettings extends BaseURL {
                 .spec(getSpec())
                 .body(credentials)
                 .when()
-                .post(LOGIN)
+                .post(PATH +"login")
                 .then();
     }
 
@@ -36,7 +34,7 @@ public class UserSettings extends BaseURL {
             return given()
                     .spec(getSpec())
                     .auth().oauth2(accessToken)
-                    .delete(DELETE)
+                    .delete(PATH + "user?={user}")
                     .then().log().all()
                     .assertThat()
                     .statusCode(202);
