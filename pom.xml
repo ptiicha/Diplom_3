@@ -65,6 +65,11 @@
             <artifactId>allure-plugin-api</artifactId>
             <version>${allure.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>6.3.4</version>
+        </dependency>
         <!-- required by Allure web view -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
