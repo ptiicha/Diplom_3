@@ -3,14 +3,10 @@ import io.qameta.allure.junit4.DisplayName;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertTrue;
-import pageObject.PasswordRecoveryPage;
-import pageObject.MainPage;
-import pageObject.RegistrationPage;
+import pageObject.*;
+import model.*;
 import io.restassured.response.ValidatableResponse;
-import model.UserSettings;
-import model.UserGenerator;
-import model.UserCredentials;
-import model.User;
+import model.BaseURL;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,13 +33,13 @@ public class TestUserRegistration {
                 .path("accessToken");
     }
 
-    @Step("Login")
+    @Step("User login")
     public ValidatableResponse login(UserCredentials credentials) {
         return given()
                 .spec(getSpec())
                 .body(credentials)
                 .when()
-                .post(PATH +"login");
+                .post(PATH +"login")
                 .then()
                 .assertThat()
                 .statusCode(200);
