@@ -1,52 +1,50 @@
 import com.codeborne.selenide.Selenide;
-import io.qameta.allure.junit4.DisplayName;
-
-import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertTrue;
-import pageObject.*;
 import model.*;
-import io.restassured.response.ValidatableResponse;
-import model.BaseURL;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import io.qameta.allure.Step;
+import pageObject.RegistrationPage;
 
-public class TestUserRegistration {
+public class TestUserRegistration extends SetUp {
 
     private UserSettings userSet;
     private User userNew;
-    private String accessToken;
+    private UserCredentials credentials;
+    private boolean afterToBeLaunched;
 
     @Before
-    public void setUp() {
+    public void startup() {
         System.setProperty("selenide.browser", "chrome");
+        afterToBeLaunched = true;
         userSet = new UserSettings();
         userNew = UserGenerator.getRandomUser();
-        UserCredentials credentials = UserCredentials.from(userNew);
         userSet.create(userNew);
-        accessToken = userSet.login(credentials)
-                .log().all()
-                .assertThat()
-                .statusCode(200)
-                .extract()
-                .path("accessToken");
+        credentials = UserCredentials.from(userNew);
     }
 
-    @Step("User login")
-    public ValidatableResponse login(UserCredentials credentials) {
-        return given()
-                .spec(getSpec())
-                .body(credentials)
-                .when()
-                .post(PATH +"login")
-                .then()
-                .assertThat()
-                .statusCode(200);
+
+    @Test
+    //@DisplayName("Check registering a new user with an incorrect pass, with less than 6 symbols, fails")
+    public void registrationUserFailedIncorrectPass() {
+        userNew.setPassword("five");
+        final boolean incorrectPasswordWarningDisplayed = Selenide.open(RegistrationPage.URL, RegistrationPage.class)
+                .clickRegistrationLink()
+                .registrationUserFailedIncorrectPass(userNew)
+                .isIncorrectPassDisplayed();
+        assertTrue(incorrectPasswordWarningDisplayed);
+        afterToBeLaunched = false;
     }
 
     @After
     public void teardown() {
-        Selenide.closeWindow();
+        if (!afterToBeLaunched) {
+            return;
+        }
+        String accessToken = userSet.login(credentials)
+                .log().all()
+                .extract()
+                .path("accessToken");
+        userSet.delete(userNew.getEmail(), accessToken);
     }
 }

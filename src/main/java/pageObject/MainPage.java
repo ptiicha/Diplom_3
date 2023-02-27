@@ -68,19 +68,19 @@ public class MainPage {
 
     public MainPage displayAvailableBuns() {
         bunsTab.click();
-        Selenide.sleep(3000);
+        Selenide.sleep(4000);
         return this;
     }
 
     public MainPage displayAvailableSauces() {
         saucesTab.click();
-        Selenide.sleep(3000);
+        Selenide.sleep(4000);
         return this;
     }
 
     public MainPage displayAvailableFillings() {
         fillingsTab.click();
-        Selenide.sleep(3000);
+        Selenide.sleep(4000);
         return this;
     }
 

@@ -1,14 +1,10 @@
 package model;
-import org.apache.commons.lang3.RandomStringUtils;
 
 public class User {
 
     private String email;
     private String name;
     private String password;
-
-    public User(String email, String name, String password) {
-    }
 
     public User(String name, String email) {
         this.email = email;
@@ -37,6 +33,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public User(String email, String name, String password) {
     }
 
     public User() {

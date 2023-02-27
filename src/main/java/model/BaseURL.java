@@ -1,17 +1,13 @@
 package model;
 
 import io.restassured.specification.RequestSpecification;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.http.ContentType;
+import static io.restassured.RestAssured.given;
 
 public class BaseURL {
-
-    protected static RequestSpecification getSpec(){
-        return new RequestSpecBuilder()
-                .setContentType(ContentType.JSON)
-                .setBaseUri("https://stellarburgers.nomoreparties.site/")
-                .build();
-    }
+    protected final String URL = "https://stellarburgers.nomoreparties.site/api";
+    protected final RequestSpecification getSpec = given()
+            .baseUri (URL)
+            .header("Content-type", "application/json");
 }
 
 

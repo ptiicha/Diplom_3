@@ -7,7 +7,7 @@ import org.openqa.selenium.support.How;
 import io.qameta.allure.Step;
 
 public class PasswordRecoveryPage {
-    final public static String URL = "https://stellarburgers.nomoreparties.site/forgot-password";
+    final public static String URL = MainPage.URL + "forgot-password";
 
     // link
     @FindBy(how = How.XPATH,using = ("//a[text()='Войти']"))

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class RegistrationPage {
-    final public static String URL = "https://stellarburgers.nomoreparties.site/register";
+    final public static String URL = MainPage.URL + "register";
 
     // локатор поля имени
     @FindBy(how = How.XPATH,using =("//label[text()='Имя']//following-sibling::input"))
@@ -33,7 +33,7 @@ public class RegistrationPage {
 
     // Регистрация пользователя с неверным email
     @Step("Registration failed - incorrect password")
-    public RegistrationPage registerUserFailedIncorrectPass(User user) {
+    public RegistrationPage registrationUserFailedIncorrectPass(User user) {
         inputName(user.getName());
         inputEmail(user.getEmail());
         inputPassword("shd");
@@ -78,6 +78,7 @@ public class RegistrationPage {
         return Selenide.page(LoginPage.class);
     }
 
+
     // регистрация нового пользователя
     @Step("Registration form")
     public LoginPage registrationUser(User user) {
@@ -86,6 +87,12 @@ public class RegistrationPage {
         inputPassword(user.getPassword());
         clickRegisterButton();
         return Selenide.page(LoginPage.class);
+    }
+
+    @Step("Registration button click")
+    public RegistrationPage clickRegistrationLink() {
+        registerButton.shouldBe(visible).click();
+        return Selenide.page(RegistrationPage.class);
     }
 
     // Клик "Войти"

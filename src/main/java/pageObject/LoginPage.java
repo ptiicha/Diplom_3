@@ -10,7 +10,7 @@ import org.openqa.selenium.support.How;
 
 public class LoginPage {
 
-    final public static String URL = "https://stellarburgers.nomoreparties.site/login";
+    final public static String URL = MainPage.URL + "login";
 
     @FindBy(how = How.XPATH,using = ("//a[text()='Восстановить пароль']"))
     private SelenideElement restorePasswordLink;
@@ -32,11 +32,7 @@ public class LoginPage {
     @FindBy(how = How.XPATH,using = ("//h2[text()='Вход']"))
     private SelenideElement userLoginText;
 
-    @Step("Registration button click")
-    public RegistrationPage clickRegistrationLink() {
-        registerLink.shouldBe(visible).click();
-        return Selenide.page(RegistrationPage.class);
-    }
+
     @Step("Password recovery click")
     public PasswordRecoveryPage clickPasswordRecoveryLink() {
         restorePasswordLink.click();

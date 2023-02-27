@@ -8,7 +8,7 @@ import org.openqa.selenium.support.How;
 import io.qameta.allure.Step;
 
 public class ProfilePage {
-    final public static String URL = "https://stellarburgers.nomoreparties.site/profile";
+    final public static String URL = MainPage.URL + "profile";
 
     // локатор описания профиля (В этом разделе вы можете изменить свои персональные данные)
     @FindBy(how = How.XPATH,using = ("//p[text()='В этом разделе вы можете изменить свои персональные данные']"))
