@@ -2,7 +2,7 @@ package model;
 import io.restassured.response.ValidatableResponse;
 
 public class UserSettings extends BaseURL {
-    private final String PATH = "api/auth/";
+    private final String PATH = "https://stellarburgers.nomoreparties.site/";
     public String accessToken = "";
 
     //@Step("User registration")
@@ -10,7 +10,7 @@ public class UserSettings extends BaseURL {
         return getSpec
                 .body(user)
                 .when()
-                .post(PATH + "register")
+                .post("https://stellarburgers.nomoreparties.site/register")
                 .then();
     }
 
@@ -29,7 +29,7 @@ public class UserSettings extends BaseURL {
                 .header("authorization", accessToken)
                 .pathParams("user", user)
                 .when()
-                .delete(PATH + "user?={user}")
+                .delete("https://stellarburgers.nomoreparties.site/api/auth" + "user?={user}")
                 .then().log().all()
                 .assertThat()
                 .statusCode(202);
